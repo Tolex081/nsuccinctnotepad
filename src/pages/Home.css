@@ -1,0 +1,302 @@
+/* src/pages/Home.css */
+.container {
+  max-width: 768px;
+  margin: 0 auto;
+  padding: 16px;
+}
+
+.form {
+  margin-bottom: 24px;
+  padding: 20px;
+  background-color: var(--card-bg);
+  border-radius: 12px;
+  box-shadow: 0 4px 6px var(--shadow-color);
+  display: flex;
+  align-items: flex-start;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.form-content {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  flex: 1;
+  min-width: 250px;
+}
+
+.form h2 {
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 12px;
+}
+
+.form input,
+.form textarea {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 8px;
+  border: 1px solid;
+  border-radius: 8px;
+  background-color: var(--card-bg);
+  color: var(--text-color);
+}
+
+.form input {
+  font-size: 16px;
+  max-width: 300px;
+}
+
+.form textarea {
+  font-size: 12px; /* Reduced font size for form textarea */
+  max-width: 400px;
+  height: 100px;
+  resize: vertical;
+}
+
+.form input:focus,
+.form textarea:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.2);
+}
+
+.form button {
+  padding: 10px 24px;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.2s ease; /* Fixed transition syntax */
+  align-self: flex-start;
+  margin-top: 4px;
+}
+
+.form button:hover {
+  filter: brightness(85%);
+}
+
+.team-image {
+  max-width: 100px;
+  height: auto;
+  object-fit: contain;
+  margin-right: 13rem;
+  margin-top: 1.5rem;
+}
+
+.note-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 12px;
+  padding: 8px 0;
+}
+
+.note-card {
+  padding: 16px;
+  background-color: #2e3b4e;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px var(--shadow-color);
+  border: 2px solid;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 200px;
+  position: relative;
+}
+
+.note-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 6px 12px var(--shadow-color);
+}
+
+.note-card h2 {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 8px;
+  line-height: 1.3;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: #ffffff;
+}
+
+.note-card h2 a {
+  text-decoration: none;
+}
+
+.note-card h2 a:hover {
+  text-decoration: underline;
+}
+
+.note-card p {
+  color: #ffffff;
+  font-size: 12px; /* Reduced font size and removed boldness for saved note content */
+  margin-bottom: 12px;
+  line-height: 1.5;
+  flex-grow: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+}
+
+.note-card .timestamp {
+  font-size: 12px;
+  color: #9ca3af;
+  margin-bottom: 12px;
+}
+
+.screenshot-text {
+  display: none;
+  flex-direction: row;
+  align-items: flex-start;
+  padding: 16px;
+  background-color: #2e3b4e;
+}
+
+.screenshot-text p {
+  color: #ffffff;
+  font-size: 6px; /* Further reduced font size for screenshot textarea content */
+  line-height: 1.5;
+  margin: 0;
+  flex-grow: 1;
+  white-space: pre-wrap;
+}
+
+.logo-screenshot {
+  max-width: 80px;
+  height: auto;
+  object-fit: contain;
+  margin-left: 8px;
+  opacity: 0.8;
+  align-self: flex-start;
+}
+
+.note-card .button-group {
+  display: flex;
+  gap: 8px;
+  justify-content: flex-end;
+}
+
+.note-card .button-group.hide-buttons {
+  display: none;
+}
+
+.note-card button {
+  padding: 6px 12px;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.note-card .edit-button,
+.note-card .delete-button,
+.note-card .share-button,
+.note-card .download-button {
+  font-size: 1rem;
+  font-weight: 600;
+  padding: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 0.5rem;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.note-card .edit-button:hover,
+.note-card .delete-button:hover,
+.note-card .share-button:hover,
+.note-card .download-button:hover {
+  transform: scale(1.1);
+}
+
+.note-card .edit-button {
+  color: white;
+}
+
+.note-card .delete-button {
+  background-color: #EF4444;
+  color: white;
+}
+
+.note-card .delete-button:hover {
+  background-color: #DC2626;
+}
+
+.note-card .share-button {
+  background-color: #3B82F6;
+  color: white;
+}
+
+.note-card .share-button:hover {
+  background-color: #2563EB;
+}
+
+.note-card .download-button {
+  background-color: #10B981;
+  color: white;
+}
+
+.note-card .download-button:hover {
+  background-color: #059669;
+}
+
+.empty-message {
+  text-align: center;
+  color: #9ca3af;
+  font-size: 16px;
+  padding: 24px;
+  background-color: #2e3b4e;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px var(--shadow-color);
+}
+
+.note-detail {
+  padding: 20px;
+  background-color: #2e3b4e;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px var(--shadow-color);
+  border: 2px solid;
+  max-width: 600px;
+  margin: 16px auto;
+}
+
+.note-detail h2 {
+  font-size: 22px;
+  font-weight: 600;
+  margin-bottom: 12px;
+  color: #f3f4f6;
+}
+
+.note-detail p {
+  color: #d1d5db;
+  font-size: 16px;
+  margin-bottom: 16px;
+  line-height: 1.6;
+}
+
+.note-detail .timestamp {
+  font-size: 14px;
+  color: #9ca3af;
+  margin-bottom: 10px;
+}
+
+.note-detail a {
+  text-decoration: none;
+  font-size: 16px;
+  padding: 8px 16px;
+  border-radius: 8px;
+  color: white;
+  background-color: #1B263B;
+  transition: background-color 0.2s ease;
+}
+
+.note-detail a:hover {
+  background-color: #6B7280;
+}

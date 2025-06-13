@@ -1,0 +1,110 @@
+/* src/pages/Welcome.css */
+:root {
+  --card-bg: #ffffffc3;
+  --text-color: #1B263B;
+  --border-color: #D1D5DB;
+  --shadow-color: rgba(0, 0, 0, 0.1);
+}
+
+.welcome-container {
+  max-width: 600px;
+  margin: 150px auto 4rem; /* Increased top margin to shift down */
+  padding: 24px;
+  background-color: var(--card-bg);
+  border-radius: 8px;
+  box-shadow: 0 4px 6px var(--shadow-color);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+}
+
+.all-team {
+  max-width: 300px;
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+  position: absolute;
+  top: -120px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 0;
+  transition: transform 0.3s ease;
+}
+
+.all-team:hover {
+  transform: translateX(-50%) scale(1.05);
+}
+
+.welcome-container h2 {
+  font-size: 1.75rem;
+  font-weight: 600;
+  color: var(--text-color);
+  margin-bottom: 16px;
+  z-index: 100000;
+}
+
+.welcome-container select {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 16px;
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  font-size: 1rem;
+  background-color: var(--card-bg);
+  color: var(--text-color);
+  z-index: 1;
+}
+
+.welcome-container select:focus {
+  outline: none;
+  border-color: var(--text-color);
+  box-shadow: 0 0 0 2px rgba(27, 38, 59, 0.2);
+}
+
+.welcome-container button {
+  padding: 12px 24px;
+  background-color: #1B263B;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 1rem;
+  cursor: pointer;
+  text-decoration: none;
+  z-index: 1;
+}
+
+.welcome-container button:hover {
+  background-color: #6B7280;
+  text-decoration: none;
+}
+
+.welcome-container button:disabled {
+  background-color: #D1D5DB;
+  cursor: not-allowed;
+}
+
+a[href] {
+  text-decoration: none;
+}
+
+a[href]:hover {
+  text-decoration: none;
+}
+
+@media (max-width: 768px) {
+  .welcome-container {
+    margin: 100px 20px 4rem; /* Adjusted top margin for mobile */
+    padding: 16px;
+  }
+
+  .all-team {
+    max-width: 200px;
+    top: -133px;
+  }
+
+  .welcome-container h2 {
+    font-size: 1.5rem;
+  }
+}
