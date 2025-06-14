@@ -149,19 +149,29 @@
 }
 
 .screenshot-text {
-  display: none;
-  flex-direction: row;
-  align-items: flex-start;
+  visibility: hidden;
+  position: absolute;
+  top: -9999px;
+  left: -9999px;
+  flex-direction: column; /* Stack list and logo vertically */
+  align-items: flex-start; /* Ensures logo at top-right and no timestamp in screenshot */
   padding: 16px;
   background-color: #2e3b4e;
+  width: 100%;
+  max-width: 400px; /* Matches form textarea max-width */
 }
 
-.screenshot-text p {
+.screenshot-text ul {
   color: #ffffff;
-  font-size: 6px; /* Further reduced font size for screenshot textarea content */
+  font-size: 6px; /* Further reduced font size for screenshot list content */
   line-height: 1.5;
-  margin: 0;
+  margin: 0 0 8px 16px; /* Margin for bullet alignment */
+  padding: 0;
+  list-style-type: disc; /* Bullet points */
   flex-grow: 1;
+}
+
+.screenshot-text li {
   white-space: pre-wrap;
 }
 
@@ -169,9 +179,8 @@
   max-width: 80px;
   height: auto;
   object-fit: contain;
-  margin-left: 8px;
+  align-self: flex-end; /* Logo positioned at top-right in screenshot */
   opacity: 0.8;
-  align-self: flex-start;
 }
 
 .note-card .button-group {
@@ -294,7 +303,7 @@
   border-radius: 8px;
   color: white;
   background-color: #1B263B;
-  transition: background-color 0.2s ease;
+transition: background-color 0.2s ease;
 }
 
 .note-detail a:hover {
