@@ -143,13 +143,15 @@ function Home({ team, theme }) {
       if (!imageDataUrl) {
         alert('Failed to capture screenshot. Sharing text only.');
         try {
+          const shareData = { text: shareText };
+          await navigator.share(shareData);
+          console.log('Shared text only via Web Share API');
+        } catch (error) {
+          console.error('Error sharing text:', error);
           const tweetText = encodeURIComponent(shareText);
           const tweetUrl = `https://x.com/compose/post?text=${tweetText}`;
-          console.log('Opening X compose URL (fallback):', tweetUrl);
+          console.log('Opening X compose URL (text fallback):', tweetUrl);
           window.open(tweetUrl, '_blank');
-        } catch (error) {
-          console.error('Error sharing note:', error);
-          alert('Failed to share. Please check your network or try again.');
         }
         return;
       }
@@ -166,21 +168,42 @@ function Home({ team, theme }) {
 
         if (navigator.canShare && navigator.canShare(shareData)) {
           await navigator.share(shareData);
-          console.log('Shared successfully via Web Share API');
+          console.log('Shared text and image via Web Share API');
         } else {
-          // Fallback for mobile if Web Share API doesn't support files
-          const tweetText = encodeURIComponent(shareText);
-          const tweetUrl = `https://x.com/compose/post?text=${tweetText}`;
-          console.log('Opening X compose URL (mobile fallback):', tweetUrl);
-          window.open(tweetUrl, '_blank');
+          // Fallback: Try sharing text and image via blob URL
+          const blobUrl = URL.createObjectURL(blob);
+          const fallbackShareData = {
+            title: 'Succinct Notepad Task',
+            text: shareText,
+            url: blobUrl,
+          };
+          try {
+            await navigator.share(fallbackShareData);
+            console.log('Shared text and image via blob URL');
+            URL.revokeObjectURL(blobUrl);
+          } catch (error) {
+            console.error('Error sharing via blob URL:', error);
+            // Final fallback: Share text only
+            const textShareData = { text: shareText };
+            await navigator.share(textShareData);
+            console.log('Shared text only via Web Share API');
+            URL.revokeObjectURL(blobUrl);
+          }
         }
       } catch (error) {
         console.error('Error sharing via Web Share API:', error);
         alert('Failed to share via X app. Sharing text only.');
-        const tweetText = encodeURIComponent(shareText);
-        const tweetUrl = `https://x.com/compose/post?text=${tweetText}`;
-        console.log('Opening X compose URL (error fallback):', tweetUrl);
-        window.open(tweetUrl, '_blank');
+        try {
+          const shareData = { text: shareText };
+          await navigator.share(shareData);
+          console.log('Shared text only via Web Share API (error fallback)');
+        } catch (err) {
+          console.error('Error sharing text:', err);
+          const tweetText = encodeURIComponent(shareText);
+          const tweetUrl = `https://x.com/compose/post?text=${tweetText}`;
+          console.log('Opening X compose URL (error fallback):', tweetUrl);
+          window.open(tweetUrl, '_blank');
+        }
       }
     } else {
       // Desktop: Share text only via X compose page
