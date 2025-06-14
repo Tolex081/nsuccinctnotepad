@@ -67,7 +67,7 @@
   border-radius: 8px;
   font-size: 16px;
   cursor: pointer;
-  transition: background-color 0.2s ease; /* Fixed transition syntax */
+  transition: background-color 0.2s ease;
   align-self: flex-start;
   margin-top: 4px;
 }
@@ -131,7 +131,7 @@
 
 .note-card p {
   color: #ffffff;
-  font-size: 12px; /* Reduced font size and removed boldness for saved note content */
+  font-size: 16px; /* Increased font size for saved note content */
   margin-bottom: 12px;
   line-height: 1.5;
   flex-grow: 1;
@@ -163,7 +163,7 @@
 
 .screenshot-text ul {
   color: #ffffff;
-  font-size: 6px; /* Further reduced font size for screenshot list content */
+  font-size: 10px; /* Increased font size for screenshot list content */
   line-height: 1.5;
   margin: 0 0 8px 16px; /* Margin for bullet alignment */
   padding: 0;
@@ -285,7 +285,7 @@
 
 .note-detail p {
   color: #d1d5db;
-  font-size: 16px;
+  font-size: 36px;
   margin-bottom: 16px;
   line-height: 1.6;
 }
@@ -303,7 +303,7 @@
   border-radius: 8px;
   color: white;
   background-color: #1B263B;
-transition: background-color 0.2s ease;
+  transition: background-color 0.2s ease;
 }
 
 .note-detail a:hover {
