@@ -87,23 +87,46 @@ function Home({ team, theme }) {
 
   const captureScreenshot = async (noteId) => {
     const noteElement = noteRefs.current[noteId];
-    if (!noteElement) return null;
+    if (!noteElement) {
+      console.error('Note element not found for ID:', noteId);
+      return null;
+    }
 
     try {
-      // Hide buttons during screenshot
-      const buttonGroup = noteElement.querySelector('.button-group');
-      if (buttonGroup) {
-        buttonGroup.classList.add('hide-buttons');
+      const screenshotElement = noteElement.querySelector('.screenshot-text');
+      if (!screenshotElement) {
+        console.error('Screenshot element not found for note ID:', noteId);
+        return null;
       }
 
-      const canvas = await html2canvas(noteElement, { scale: 2, backgroundColor: '#2e3b4e' });
-      
-      // Show buttons again
-      if (buttonGroup) {
-        buttonGroup.classList.remove('hide-buttons');
+      // Temporarily make screenshot element visible for rendering
+      screenshotElement.style.visibility = 'visible';
+      screenshotElement.style.position = 'absolute';
+      screenshotElement.style.top = '-9999px';
+      screenshotElement.style.left = '-9999px';
+
+      // Wait for rendering
+      await new Promise((resolve) => setTimeout(resolve, 100));
+
+      const canvas = await html2canvas(screenshotElement, {
+        scale: 2,
+        backgroundColor: '#2e3b4e',
+        logging: true,
+      });
+
+      // Restore original styles
+      screenshotElement.style.visibility = 'hidden';
+      screenshotElement.style.position = 'absolute';
+      screenshotElement.style.top = '-9999px';
+      screenshotElement.style.left = '-9999px';
+
+      const dataUrl = canvas.toDataURL('image/png');
+      if (!dataUrl || dataUrl === 'data:,') {
+        console.error('Generated canvas is empty');
+        return null;
       }
 
-      return canvas.toDataURL('image/png');
+      return dataUrl;
     } catch (error) {
       console.error('Error capturing screenshot:', error);
       return null;
@@ -242,11 +265,16 @@ function Home({ team, theme }) {
                 ? `Updated: ${new Date(note.updatedAt).toLocaleString()}`
                 : `Created: ${new Date(note.createdAt).toLocaleString()}`}
             </p>
-            <img
-              src={succinctLogo}
-              alt="Succinct Logo"
-              className="logo-screenshot"
-            />
+            <div className="screenshot-text">
+              {note.content.split('\n').map((item, index) => (
+                <p key={index}>{item}</p>
+              ))}
+              <img
+                src={succinctLogo}
+                alt="Succinct Logo"
+                className="logo-screenshot"
+              />
+            </div>
             <div className="button-group">
               <button
                 className="edit-button"
