@@ -138,16 +138,16 @@ function Home({ team, theme }) {
     const shareText = 'Gprove, check out my Succinct to do list for today create yours at https://succinctnotepad.vercel.app';
 
     if (isMobile && navigator.share) {
-      // Mobile: Share image and text via Web Share API
+      // Mobile: Share both image and text via Web Share API
       const imageDataUrl = await captureScreenshot(noteId);
       if (!imageDataUrl) {
         alert('Failed to capture screenshot. Sharing text only.');
         try {
-          const shareData = { text: shareText };
-          await navigator.share(shareData);
+          await navigator.share({ text: shareText });
           console.log('Shared text only via Web Share API');
         } catch (error) {
           console.error('Error sharing text:', error);
+          alert('Failed to share text.');
           const tweetText = encodeURIComponent(shareText);
           const tweetUrl = `https://x.com/compose/post?text=${tweetText}`;
           console.log('Opening X compose URL (text fallback):', tweetUrl);
@@ -166,39 +166,17 @@ function Home({ team, theme }) {
           files: [file],
         };
 
-        if (navigator.canShare && navigator.canShare(shareData)) {
-          await navigator.share(shareData);
-          console.log('Shared text and image via Web Share API');
-        } else {
-          // Fallback: Try sharing text and image via blob URL
-          const blobUrl = URL.createObjectURL(blob);
-          const fallbackShareData = {
-            title: 'Succinct Notepad Task',
-            text: shareText,
-            url: blobUrl,
-          };
-          try {
-            await navigator.share(fallbackShareData);
-            console.log('Shared text and image via blob URL');
-            URL.revokeObjectURL(blobUrl);
-          } catch (error) {
-            console.error('Error sharing via blob URL:', error);
-            // Final fallback: Share text only
-            const textShareData = { text: shareText };
-            await navigator.share(textShareData);
-            console.log('Shared text only via Web Share API');
-            URL.revokeObjectURL(blobUrl);
-          }
-        }
+        await navigator.share(shareData);
+        console.log('Shared text and image via Web Share API');
       } catch (error) {
-        console.error('Error sharing via Web Share API:', error);
-        alert('Failed to share via X app. Sharing text only.');
+        console.error('Error sharing image and text:', error);
+        alert('Failed to share image. Sharing text only.');
         try {
-          const shareData = { text: shareText };
-          await navigator.share(shareData);
+          await navigator.share({ text: shareText });
           console.log('Shared text only via Web Share API (error fallback)');
         } catch (err) {
           console.error('Error sharing text:', err);
+          alert('Failed to share text.');
           const tweetText = encodeURIComponent(shareText);
           const tweetUrl = `https://x.com/compose/post?text=${tweetText}`;
           console.log('Opening X compose URL (error fallback):', tweetUrl);
@@ -289,6 +267,7 @@ function Home({ team, theme }) {
                 : `Created: ${new Date(note.createdAt).toLocaleString()}`}
             </p>
             <div className="screenshot-text">
+              <h2 style={{ color: team.color }}>{note.title}</h2>
               {note.content.split('\n').map((item, index) => (
                 <p key={index}>{item}</p>
               ))}
